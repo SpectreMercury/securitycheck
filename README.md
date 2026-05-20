@@ -37,7 +37,7 @@ like a placeholder or public sample — human verifies).
 ### As a Claude Code skill
 
 ```bash
-npx securitycheck install
+npx @error404/securitycheck install
 ```
 
 This copies the skill to `~/.claude/skills/securitycheck/`. Restart Claude
@@ -48,23 +48,26 @@ will fall back to a manual review if the CLI isn't on PATH.
 ### As a one-off CLI
 
 ```bash
-npx securitycheck scan          # scan the staged diff
-npx securitycheck scan --strict # also generic password=... heuristics
-npx securitycheck scan --all    # scan working tree, not just staged
-npx securitycheck scan --json   # machine-readable output
+npx @error404/securitycheck scan          # scan the staged diff
+npx @error404/securitycheck scan --strict # also generic password=... heuristics
+npx @error404/securitycheck scan --all    # scan working tree, not just staged
+npx @error404/securitycheck scan --json   # machine-readable output
 ```
+
+After a global install (`npm i -g @error404/securitycheck`) the `securitycheck`
+binary is on your `$PATH`, so you can drop the `npx @error404/` prefix.
 
 ### As a git pre-commit hook (no dependencies)
 
 ```bash
-npx securitycheck hook > .git/hooks/pre-commit
+npx @error404/securitycheck hook > .git/hooks/pre-commit
 chmod +x .git/hooks/pre-commit
 ```
 
 ### With Husky
 
 ```bash
-npm install -D husky securitycheck
+npm install -D husky @error404/securitycheck
 npx husky init
 echo 'npx securitycheck scan' > .husky/pre-commit
 ```
