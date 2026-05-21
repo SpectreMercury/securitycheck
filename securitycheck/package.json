@@ -14,7 +14,8 @@
   "files": [
     "bin/",
     "lib/",
-    "skill/",
+    "references/",
+    "SKILL.md",
     "README.md",
     "LICENSE"
   ],
@@ -40,10 +41,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SpectreMercury/securitycheck.git"
+    "url": "git+https://github.com/SpectreMercury/404labs.git",
+    "directory": "securitycheck"
   },
   "bugs": {
-    "url": "https://github.com/SpectreMercury/securitycheck/issues"
+    "url": "https://github.com/SpectreMercury/404labs/issues"
   },
-  "homepage": "https://github.com/SpectreMercury/securitycheck#readme"
+  "homepage": "https://github.com/SpectreMercury/404labs/tree/master/securitycheck#readme"
 }
