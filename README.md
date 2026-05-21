@@ -1,8 +1,10 @@
 # 404labs
 
-A growing collection of agent skills for Claude Code and other AI coding
-assistants. Each skill lives in its own subdirectory with a `SKILL.md` at
-the root; a few also ship a runtime CLI as an npm package.
+A growing collection of agent skills that work across **Claude Code,
+OpenAI Codex CLI, Google Antigravity, and Moonshot Kimi CLI**. Each skill
+lives in its own subdirectory with a `SKILL.md` at the root; skills that
+also ship a runtime ship as an npm package, with a single installer that
+detects which CLIs you have and drops the skill into each.
 
 ## Skills
 
@@ -10,24 +12,35 @@ the root; a few also ship a runtime CLI as an npm package.
 |---|---|---|
 | [securitycheck](./securitycheck) | Pre-commit secret-leak gate: `.gitignore` audit, sensitive-file check, diff content scan for API keys, tokens, private keys, DB URIs. | [`@404labs/securitycheck`](https://www.npmjs.com/package/@404labs/securitycheck) |
 
-## Install a skill (Claude Code)
+## Installing a skill
 
-Two paths, depending on whether the skill is also an npm package.
+Two paths.
 
-**Via the [skills](https://github.com/anthropics/skills) CLI** (works for
-any skill in this repo):
+**Via npm** (skills that ship a package — auto-detects which CLIs you have
+and installs to each):
+
+```bash
+npx @404labs/<skill-name> install                # auto-detect
+npx @404labs/<skill-name> install --target all   # install for every supported CLI
+npx @404labs/<skill-name> install --list-targets # see all options
+```
+
+Supported targets: `claude`, `codex`, `antigravity`, `kimi`. Each writes
+the same `SKILL.md` to that CLI's conventional skill directory.
+
+**Via the [`skills`](https://github.com/anthropics/skills) CLI** (works for
+any skill in this repo; Claude Code only):
 
 ```bash
 npx skills add https://github.com/SpectreMercury/404labs --skill <skill-name>
 ```
 
-**Via npm** (only for skills that publish a package):
+### Not supported natively yet
 
-```bash
-npx @404labs/<skill-name> install
-```
-
-Both end up at `~/.claude/skills/<skill-name>/`.
+- **Zhipu GLM** — no first-party skill loader; distribute via
+  [GLM-skills / clawhub](https://github.com/zai-org/GLM-skills)
+- **MiniMax** — same; use the
+  [MiniMax-AI/skills](https://github.com/MiniMax-AI/skills) marketplace
 
 ## Repo layout
 

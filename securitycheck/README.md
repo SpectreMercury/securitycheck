@@ -1,7 +1,9 @@
 # securitycheck
 
 > Block API keys, tokens, `.env` files, and private keys from leaking into
-> git. Ships as a **Claude Code skill** and a standalone **CLI / git hook**.
+> git. Ships as a **skill for Claude Code, OpenAI Codex CLI, Google
+> Antigravity, and Moonshot Kimi CLI**, plus a standalone **CLI / git hook**
+> that works without any agent.
 
 After the GitHub OAuth-token compromise in early 2026, "my repo is private"
 stopped being a credible secrets-management strategy. Any secret committed
@@ -34,21 +36,47 @@ like a placeholder or public sample — human verifies).
 
 ## Install
 
-### As a Claude Code skill
+### As an agent skill
 
-Either path works — both end up at `~/.claude/skills/securitycheck/`:
+One command installs the skill for every supported CLI it can find on your
+machine:
 
 ```bash
-# 1. Via the skills CLI (no npm package install)
-npx skills add https://github.com/SpectreMercury/404labs --skill securitycheck
-
-# 2. Via the npm package's own installer (also gives you the standalone CLI)
-npx @404labs/securitycheck install
+npx @404labs/securitycheck install                      # auto-detect, install to each
+npx @404labs/securitycheck install --target all         # install for every supported CLI
+npx @404labs/securitycheck install --target claude,kimi # comma-separated explicit list
+npx @404labs/securitycheck install --list-targets       # show what's supported
 ```
 
-Restart Claude Code so the skill index picks it up. Claude will then run
-`securitycheck scan` automatically before any commit, push, or PR — and
-will fall back to a manual review if the CLI isn't on `$PATH`.
+Supported targets and their install paths:
+
+| Target | CLI | Path |
+|---|---|---|
+| `claude` | Claude Code | `~/.claude/skills/securitycheck/` |
+| `codex` | OpenAI Codex CLI | `~/.agents/skills/securitycheck/` |
+| `antigravity` | Google Antigravity | `~/.gemini/antigravity/skills/securitycheck/` |
+| `kimi` | Moonshot Kimi CLI | `~/.kimi/skills/securitycheck/` |
+
+All four use the same `SKILL.md` (YAML frontmatter + Markdown). Restart
+your CLI so the skill index picks it up.
+
+You can also install the Claude variant via the
+[`skills`](https://github.com/anthropics/skills) CLI directly from this
+repo, no npm install needed:
+
+```bash
+npx skills add https://github.com/SpectreMercury/404labs --skill securitycheck
+```
+
+**Not yet natively supported, but the standalone CLI still works:**
+
+- **Zhipu GLM** — no native skill mechanism. Distribute via
+  [GLM-skills / clawhub](https://github.com/zai-org/GLM-skills), or just
+  call `npx @404labs/securitycheck scan` from your own hook.
+- **MiniMax** — same story. Use the
+  [MiniMax-AI/skills](https://github.com/MiniMax-AI/skills) marketplace
+  (which redistributes into Claude Code / Cursor) or wire the CLI in
+  manually.
 
 ### As a one-off CLI
 

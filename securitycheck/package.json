@@ -1,7 +1,7 @@
 {
   "name": "@404labs/securitycheck",
-  "version": "0.1.0",
-  "description": "Pre-commit secret scanner. Blocks API keys, tokens, .env files, and private keys from leaking into git. Ships as a Claude Code skill and a standalone CLI / git hook.",
+  "version": "0.2.0",
+  "description": "Pre-commit secret scanner. Blocks API keys, tokens, .env files, and private keys from leaking into git. Ships as a skill for Claude Code, OpenAI Codex CLI, Google Antigravity, and Moonshot Kimi CLI, plus a standalone CLI / git hook.",
   "bin": {
     "securitycheck": "./bin/cli.js",
     "sec": "./bin/cli.js"
@@ -32,7 +32,12 @@
     "lefthook",
     "claude-code",
     "claude-skill",
+    "codex-cli",
+    "antigravity",
+    "kimi-cli",
+    "agent-skill",
     "anthropic",
+    "openai",
     "supply-chain"
   ],
   "license": "MIT",
