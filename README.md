@@ -1,10 +1,12 @@
 # 404labs
 
-A growing collection of agent skills that work across **Claude Code,
-OpenAI Codex CLI, Google Antigravity, and Moonshot Kimi CLI**. Each skill
-lives in its own subdirectory with a `SKILL.md` at the root; skills that
-also ship a runtime ship as an npm package, with a single installer that
-detects which CLIs you have and drops the skill into each.
+A growing collection of agent skills installable into **55+ AI coding
+CLIs** via the [Vercel Labs `skills`](https://github.com/vercel-labs/skills)
+ecosystem — Claude Code, OpenAI Codex, Google Antigravity, Moonshot Kimi,
+Cursor, OpenCode, Gemini CLI, Cline, Roo, Windsurf, and more. Each skill
+lives in its own subdirectory with a `SKILL.md` at the root; skills with
+a runtime also ship as npm packages with a built-in installer for the
+four most common targets.
 
 ## Skills
 
@@ -14,33 +16,32 @@ detects which CLIs you have and drops the skill into each.
 
 ## Installing a skill
 
-Two paths.
+**Recommended — via the [Vercel Labs `skills`
+CLI](https://github.com/vercel-labs/skills)** (55+ supported agent CLIs;
+auto-detects which one you have):
 
-**Via npm** (skills that ship a package — auto-detects which CLIs you have
-and installs to each):
+```bash
+npx skills add SpectreMercury/404labs --skill <skill-name>            # current agent
+npx skills add SpectreMercury/404labs --skill <skill-name> --all      # all agents
+npx skills add SpectreMercury/404labs --skill <skill-name> -a codex   # specific agents
+```
+
+**Alternative — via the skill's own npm package** (skills that ship one;
+covers Claude Code, OpenAI Codex, Google Antigravity, Moonshot Kimi):
 
 ```bash
 npx @404labs/<skill-name> install                # auto-detect
-npx @404labs/<skill-name> install --target all   # install for every supported CLI
+npx @404labs/<skill-name> install --target all   # install for all 4 supported
 npx @404labs/<skill-name> install --list-targets # see all options
 ```
 
-Supported targets: `claude`, `codex`, `antigravity`, `kimi`. Each writes
-the same `SKILL.md` to that CLI's conventional skill directory.
-
-**Via the [`skills`](https://github.com/anthropics/skills) CLI** (works for
-any skill in this repo; Claude Code only):
-
-```bash
-npx skills add https://github.com/SpectreMercury/404labs --skill <skill-name>
-```
-
-### Not supported natively yet
+### Through host CLIs for unsupported targets
 
 - **Zhipu GLM** — no first-party skill loader; distribute via
   [GLM-skills / clawhub](https://github.com/zai-org/GLM-skills)
-- **MiniMax** — same; use the
+- **MiniMax** — use the
   [MiniMax-AI/skills](https://github.com/MiniMax-AI/skills) marketplace
+  (which redistributes into Claude Code / Cursor)
 
 ## Repo layout
 

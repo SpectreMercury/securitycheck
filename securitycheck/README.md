@@ -38,44 +38,53 @@ like a placeholder or public sample — human verifies).
 
 ### As an agent skill
 
-One command installs the skill for every supported CLI it can find on your
-machine:
+**Recommended — via the [Vercel Labs `skills` CLI](https://github.com/vercel-labs/skills)**
+(supports 55+ agent CLIs including Claude Code, Codex, Antigravity,
+Kimi, Cursor, OpenCode, Gemini CLI, Cline, Roo, Windsurf, Qwen Code,
+Goose, …; auto-detects which one you have):
+
+```bash
+# Install to whichever agent is detected on this machine
+npx skills add SpectreMercury/404labs --skill securitycheck
+
+# Install globally instead of project-local
+npx skills add SpectreMercury/404labs --skill securitycheck -g
+
+# Install to every supported agent on your system
+npx skills add SpectreMercury/404labs --skill securitycheck --all
+
+# Target specific agents
+npx skills add SpectreMercury/404labs --skill securitycheck -a claude-code -a codex
+```
+
+**Alternative — via this package's built-in installer** (no extra CLI
+needed, but covers only the four listed below):
 
 ```bash
 npx @404labs/securitycheck install                      # auto-detect, install to each
-npx @404labs/securitycheck install --target all         # install for every supported CLI
+npx @404labs/securitycheck install --target all         # install for all 4 supported
 npx @404labs/securitycheck install --target claude,kimi # comma-separated explicit list
 npx @404labs/securitycheck install --list-targets       # show what's supported
 ```
 
-Supported targets and their install paths:
-
-| Target | CLI | Path |
+| Built-in target | CLI | Path |
 |---|---|---|
 | `claude` | Claude Code | `~/.claude/skills/securitycheck/` |
 | `codex` | OpenAI Codex CLI | `~/.agents/skills/securitycheck/` |
 | `antigravity` | Google Antigravity | `~/.gemini/antigravity/skills/securitycheck/` |
 | `kimi` | Moonshot Kimi CLI | `~/.kimi/skills/securitycheck/` |
 
-All four use the same `SKILL.md` (YAML frontmatter + Markdown). Restart
-your CLI so the skill index picks it up.
+All paths receive the same `SKILL.md` (YAML frontmatter + Markdown).
+Restart your CLI so the skill index picks it up.
 
-You can also install the Claude variant via the
-[`skills`](https://github.com/anthropics/skills) CLI directly from this
-repo, no npm install needed:
+**For agents with no native skill loader — go through a host CLI:**
 
-```bash
-npx skills add https://github.com/SpectreMercury/404labs --skill securitycheck
-```
-
-**Not yet natively supported, but the standalone CLI still works:**
-
-- **Zhipu GLM** — no native skill mechanism. Distribute via
+- **Zhipu GLM** — distribute via
   [GLM-skills / clawhub](https://github.com/zai-org/GLM-skills), or just
-  call `npx @404labs/securitycheck scan` from your own hook.
-- **MiniMax** — same story. Use the
+  call `npx @404labs/securitycheck scan` from your own pre-commit hook.
+- **MiniMax** — use the
   [MiniMax-AI/skills](https://github.com/MiniMax-AI/skills) marketplace
-  (which redistributes into Claude Code / Cursor) or wire the CLI in
+  (it redistributes into Claude Code / Cursor) or wire the CLI in
   manually.
 
 ### As a one-off CLI
